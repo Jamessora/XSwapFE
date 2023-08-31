@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const AdminAllTradersPage = () => {
   const [traders, setTraders] = useState([]);
   const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
- 
+ //
   //`${apiBaseURL}/admin/allTraders`
   useEffect(() => {
     console.log(apiBaseURL);
