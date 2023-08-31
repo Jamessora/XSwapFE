@@ -9,6 +9,7 @@ const AdminAllTradersPage = () => {
  
   //`${apiBaseURL}/admin/allTraders`
   useEffect(() => {
+    console.log(apiBaseURL);
     fetch('https://xswap.onrender.com/admin/allTraders')
       .then(response => response.json())
       .then(data => setTraders(data));
