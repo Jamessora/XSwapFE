@@ -12,7 +12,7 @@ import AdminCreateTraderPage from './pages/admin/AdminCreateTraderPage.jsx'
 import AdminEditTraderPage from  './pages/admin/AdminEditTraderPage.jsx'
 import AdminAllTradersPage from  './pages/admin/AdminAllTradersPage.jsx'
 import AdminAllTransactionsPage from  './pages/admin/AdminAllTransactionsPage'
-
+import LandingPage from './LandingPage.jsx';
 
 import './App.css'
 
@@ -23,6 +23,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<LandingPage/>} />
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/signup" element={<SignupPage/>} />
         <Route path="/kyc" element={<KYCPage/>} />
