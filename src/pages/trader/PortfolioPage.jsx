@@ -5,10 +5,11 @@ import { useAuthenticatedRequest } from '../../services/useAuthenticatedRequest.
 const PortfolioItems = () => {
   const [portfolioItems, setPortfolioItems] = useState([]);
   const { makeRequest } = useAuthenticatedRequest();
+  const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
 
   const fetchUpdatedPortfolio = async () => {
     try {
-      const data = await makeRequest('http://localhost:3000/portfolio_items', 'GET');
+      const data = await makeRequest(`${apiBaseURL}/portfolio_items`, 'GET');
       console.log("Received data:", data);
       if (Array.isArray(data)) {  // <-- Check if the data is an array
         setPortfolioItems(data);

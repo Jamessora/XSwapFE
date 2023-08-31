@@ -8,9 +8,10 @@ const AdminEditTraderPage = () => {
   const [password, setPassword] = useState("");
   const [balance, setBalance] = useState("");
   const [kycStatus, setKycStatus] = useState("");
+  const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
-    fetch(`http://localhost:3000/admin/trader/${id}`)
+    fetch(`${apiBaseURL}/admin/trader/${id}`)
       .then(response => response.json())
       .then(data => {
         setTrader(data);

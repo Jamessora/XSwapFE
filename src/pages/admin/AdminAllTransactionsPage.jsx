@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 const AdminAllTransactionsPage = () => {
   const [transactions, setTransactions] = useState([]);
+  const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
-    fetch('http://localhost:3000/admin/allTransactions')
+    fetch(`${apiBaseURL}/admin/allTransactions`)
       .then(response => response.json())
       .then(data => setTransactions(data.transactions));
   }, []);

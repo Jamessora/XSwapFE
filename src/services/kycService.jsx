@@ -1,3 +1,4 @@
+const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
 export const submitKYC = async (kycData) => {
     const token = localStorage.getItem('auth_token');
     const headers = {
@@ -5,7 +6,7 @@ export const submitKYC = async (kycData) => {
       'Authorization': `Bearer ${token}`,
     };
   
-    const response = await fetch('http://localhost:3000/api/kyc', {
+    const response = await fetch(`${apiBaseURL}/api/kyc`, {
  
         method: 'POST',
         headers,
@@ -26,7 +27,7 @@ export const submitKYC = async (kycData) => {
         'Authorization': `Bearer ${token}`,
       };
     
-      const response = await fetch('http://localhost:3000/users/sessions/kyc_status', {
+      const response = await fetch(`${apiBaseURL}/users/sessions/kyc_status`, {
         method: 'GET',
         headers,
       });

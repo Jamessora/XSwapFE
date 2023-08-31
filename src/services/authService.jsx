@@ -1,7 +1,9 @@
 //SignupService
 
+const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
+
 export const signupService = async (email, password) => {
-    const response = await fetch('http://localhost:3000/users', {
+    const response = await fetch(`${apiBaseURL}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

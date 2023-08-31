@@ -5,9 +5,11 @@ import { useAuthenticatedRequest } from '../../services/useAuthenticatedRequest.
 const TransactionPage = () => {
   const [transactions, setTransactions] = useState([]);
   const { makeRequest } = useAuthenticatedRequest();
+  const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
+
   const fetchUpdatedTransactions = async () => {
     try {
-      const data = await makeRequest('http://localhost:3000/transactions', 'GET');
+      const data = await makeRequest(`${apiBaseURL}/transactions`, 'GET');
       console.log("Received data:", data);
       if (Array.isArray(data)) {
         setTransactions(data);

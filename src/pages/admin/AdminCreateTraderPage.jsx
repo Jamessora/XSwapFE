@@ -4,6 +4,7 @@ const AdminCreateTraderPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
 
   const handleCreateTrader = async () => {
     const payload = {
@@ -15,7 +16,7 @@ const AdminCreateTraderPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/admin/createTrader", {
+      const response = await fetch(`${apiBaseURL}/admin/createTrader`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
