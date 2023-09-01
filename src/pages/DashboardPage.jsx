@@ -1,6 +1,7 @@
 import React,{ useState, useEffect }  from 'react';
 import {Link} from 'react-router-dom'
 import { fetchKYCStatus } from '../services/kycService.jsx';
+import PersistentDrawerLeft from '../components/Sidebar.jsx';
 
 
 
@@ -15,6 +16,8 @@ const DashboardPage = () => {
 
   return (
     <div>
+      <PersistentDrawerLeft />
+      
       <h1>Welcome to the Dashboard</h1>
       <p>This is your dashboard page. You can add any content or features you need here.</p>
       <Link to="/kyc">Go to KYC Page</Link>

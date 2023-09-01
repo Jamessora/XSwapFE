@@ -22,7 +22,7 @@ const AdminEditTraderPage = () => {
   }, [id]);
 
   const handleUpdate = () => {
-    fetch(`http://localhost:3000/admin/updateTrader/${id}`, {
+    fetch(`${apiBaseURL}/admin/updateTrader/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

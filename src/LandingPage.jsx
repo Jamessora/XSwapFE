@@ -1,8 +1,14 @@
 import React from 'react';
+import ButtonUsage from './test';
+import PersistentDrawerLeft from './components/Sidebar';
+
 
 const LandingPage = () => {
     return (
+      
         <div style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
+          <PersistentDrawerLeft />
+          <ButtonUsage />
             <div style={{ backgroundColor: "lightgrey", textAlign: "center", padding: "20px" }}>
                 <h1 style={{ margin: "0" }}>My Website</h1>
                 <p>A website created by me.</p>
