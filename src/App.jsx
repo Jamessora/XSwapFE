@@ -13,6 +13,9 @@ import AdminEditTraderPage from  './pages/admin/AdminEditTraderPage.jsx'
 import AdminAllTradersPage from  './pages/admin/AdminAllTradersPage.jsx'
 import AdminAllTransactionsPage from  './pages/admin/AdminAllTransactionsPage'
 import LandingPage from './LandingPage.jsx';
+import ConfirmEmailPage from './pages/auth/ConfirmEmailPage.jsx';
+import ConfirmationFailed from './pages/auth/ConfirmationFailed.jsx';
+import ConfirmationSuccess from './pages/auth/ConfirmationSuccess.jsx';
 
 import './App.css'
 
@@ -38,6 +41,13 @@ function App() {
         <Route path="/admin/editTrader/:id" element={<AdminEditTraderPage/>} />
         <Route path="/AdminAllTraders" element={<AdminAllTradersPage/>} />
         <Route path="/AdminAllTransactions" element={<AdminAllTransactionsPage/>} />
+
+        {/* Confirmation Email */}
+        <Route path="/confirm-email" element={<ConfirmEmailPage/>} />
+        <Route path="/confirmation-success" element={<ConfirmationSuccess />} />
+        <Route path="/confirmation-failed" element={<ConfirmationFailed />} />
+
+
       </Routes>
     </Router>
   );
