@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+
 const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
 
 const ConfirmEmailPage = () => {
