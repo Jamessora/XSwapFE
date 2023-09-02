@@ -7,10 +7,12 @@ const ConfirmEmailPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    
+    console.log("Current URL: ", window.location.href);
     // Get the token from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('confirmation_token');
-
+    
     if (!token) {
       console.error('Token not found');
       // Navigate to an error page or show an error message
