@@ -1,17 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
 
 const ConfirmationSuccess = () => {
+  const query = new URLSearchParams(useLocation().search);
+  const status = query.get('status');
+
   return (
     <div>
-      <h1>Email Confirmed</h1>
-      <p>Your email has been successfully confirmed. You can now proceed to login.</p>
-      {/* Add navigation link to login page or dashboard */}
-
-      <Link href="/login" >
+      {status === 'success' ? (
+        <div>
+        <h1>Email confirmed successfully!</h1>
+        <Link href="/login" >
         Log in to account
-      </Link>
+        </Link>
+        </div>
+      ) : (
+        <h1>Failed to confirm email.</h1>
+      )}
     </div>
   );
 };
