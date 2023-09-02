@@ -7,7 +7,7 @@ const ConfirmEmailPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
+
     console.log("Current URL: ", window.location.href);
     // Get the token from the URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -20,7 +20,7 @@ const ConfirmEmailPage = () => {
     }
 
     // Make an API request to confirm the email
-    fetch(`${apiBaseURL}/api/confirm-email`, {
+    fetch(`${apiBaseURL}/users/confirmation`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
