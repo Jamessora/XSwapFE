@@ -1,0 +1,41 @@
+.container {
+    font-family: "Arial, Helvetica, sans-serif";
+  }
+  
+  .header {
+    background-color: lightgrey;
+    text-align: center;
+    padding: 20px;
+    background-image: url('src/assets/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .heading {
+    margin: 0;
+  }
+  
+  .subheading {
+    margin: 10px 0;
+  }
+  
+  .flexContainer {
+    display: flex;
+  }
+  
+  .column {
+    flex: 33.33%;
+    padding: 15px;
+  }
+  
+  .footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+  }
+  

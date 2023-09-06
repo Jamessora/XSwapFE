@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PersistentDrawerLeft from '../../components/Admin Sidebar';
 
 const AdminAllTransactionsPage = () => {
   const [transactions, setTransactions] = useState([]);
@@ -12,6 +13,7 @@ const AdminAllTransactionsPage = () => {
 
   return (
     <div>
+      <PersistentDrawerLeft />
       <h1>All Transactions</h1>
       <table>
         <thead>

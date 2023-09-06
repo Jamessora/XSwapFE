@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { withKYCProtection } from '../hoc/withKYCProtection.jsx'; 
 import { useAuthenticatedRequest } from '../../services/useAuthenticatedRequest.jsx';
+import RecentOrdersTable from './RecentOrdersTable.jsx';
+import PersistentDrawerLeft from '../../components/Sidebar.jsx';
+//import AccountBalance from './AccountBalance.jsx';
+
 
 const PortfolioItems = () => {
   const [portfolioItems, setPortfolioItems] = useState([]);
@@ -29,7 +33,11 @@ const PortfolioItems = () => {
   return (
     <div>
       <h1>Your Portfolio</h1>
-      <table>
+      <PersistentDrawerLeft/>
+      <RecentOrdersTable />
+      {/* <AccountBalance /> */}
+      
+      {/* <table>
         <thead>
           <tr>
             <th>Token</th>
@@ -48,7 +56,7 @@ const PortfolioItems = () => {
           </tr>
         ))}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 };

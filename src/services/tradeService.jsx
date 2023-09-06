@@ -1,15 +1,20 @@
 import { useAuthenticatedRequest } from './useAuthenticatedRequest';
-const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
+ const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
 
-export const fetchPrice = async (pair) => {
-  const url = `https://api.coingecko.com/api/v3/simple/price?ids=${pair}&vs_currencies=usd&${Math.random()}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  if (!data[pair] || !data[pair].usd) {
+
+ export const fetchPrice = async (pair, makeRequest) => {
+  const url = `${apiBaseURL}/api/trades/price?pair=${pair}`;
+  let data = await makeRequest(url, 'GET');
+  data = { ...data, price: data.data.priceUsd };
+
+  if (!data.price) {
     throw new Error(`Price information not available for ${pair}`);
   }
-  return data[pair].usd;
+  return data.price;
 };
+
+
+
 
 export const buyToken = (makeRequest, selectedToken, tokenAmount, totalUsdValue) => {
   return makeRequest(`${apiBaseURL}/api/trades/buy`, 'POST', {

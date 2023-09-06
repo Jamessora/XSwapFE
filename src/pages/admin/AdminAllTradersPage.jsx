@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PersistentDrawerLeft from '../../components/Admin Sidebar';
+
 
 
 
@@ -17,6 +19,7 @@ const AdminAllTradersPage = () => {
 
   return (
     <div>
+      <PersistentDrawerLeft/>
       <h1>All Traders</h1>
       <table>
         <thead>

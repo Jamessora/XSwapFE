@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { Grid, Typography, TextField, Button } from "@mui/material";
+import PersistentDrawerLeft from "../../components/Admin Sidebar";
+
 
 const AdminCreateTraderPage = () => {
   const [email, setEmail] = useState("");
@@ -38,25 +41,54 @@ const AdminCreateTraderPage = () => {
   };
 
   return (
-    <div>
-      <h1>Create Trader</h1>
-      <form>
-        <div>
-          <label>Email</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </div>
-        <div>
-          <label>Password</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </div>
-        <div>
-          <label>Confirm Password</label>
-          <input type="password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
-        </div>
-        <button type="button" onClick={handleCreateTrader}>Create Trader</button>
-      </form>
-    </div>
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <PersistentDrawerLeft />
+      </Grid>
+      <Grid item xs={12}>
+        <Typography variant="h4">Create Trader</Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <form>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Confirm Password"
+                type="password"
+                value={passwordConfirmation}
+                onChange={(e) => setPasswordConfirmation(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button variant="contained" onClick={handleCreateTrader}>
+                Create Trader
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Grid>
+    </Grid>
   );
 };
+
 
 export default AdminCreateTraderPage;

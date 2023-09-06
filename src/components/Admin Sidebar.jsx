@@ -23,10 +23,8 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
-import { logoutService } from '../services/logoutService';
 
 const drawerWidth = 240;
-
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -73,22 +71,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-const handleLogoutService = async () => {
-  try{
-  await logoutService ();
-  navigate ('/logout');
-  }catch (error) {
-    console.error('Logout failed', error );
-  }
-}
-
 const drawerItems = [
-    { text: 'Portfolio', icon: <AccountBalanceWalletIcon /> },
-    { text: 'Transactions', icon: <ReceiptLongIcon /> },
-    { text: 'Trade', icon: <CurrencyBitcoinIcon /> },
-    { text: 'Dashboard', icon: <SpaceDashboardIcon /> },
-    { text: 'Logout', icon: <SpaceDashboardIcon />, onClick: handleLogoutService },
-    { text: 'Login', icon: <SpaceDashboardIcon />, }
+    { text: 'AdminCreateTrader', icon: <AccountBalanceWalletIcon /> },
+    { text: 'admin/editTrader/:id', icon: <ReceiptLongIcon /> },
+    { text: 'AdminAllTraders', icon: <CurrencyBitcoinIcon /> },
+    { text: 'AdminAllTransactions', icon: <SpaceDashboardIcon /> }
   ];
 
   
@@ -147,15 +134,9 @@ export default function PersistentDrawerLeft() {
         <List>
           {drawerItems.map((item, index) => (
             <ListItem key={item.text} disablePadding>
-              <ListItemButton onClick={() => {
-                          if (item.onClick) {
-                            item.onClick();
-                          } else {
-                            navigate(`/${item.text.toLowerCase().replace(' ', '-')}`);
-                          }
-                        }}
-                      >
-                   <ListItemIcon>
+              <ListItemButton onClick={() => navigate(`/${item.text.toLowerCase().replace(' ', '-')}`)}>
+              
+                <ListItemIcon>
                   {item.icon}
                 </ListItemIcon>
                 <ListItemText primary={item.text} />
@@ -164,7 +145,18 @@ export default function PersistentDrawerLeft() {
           ))}
         </List>
         <Divider />
-      
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

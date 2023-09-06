@@ -6,8 +6,8 @@ import KYCPage from './pages/auth/KYCPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
 import AdminKYC from './pages/auth/adminKYCPage.jsx';
 import TradingPage from './pages/trader/TradingPage.jsx';
-import PortfolioItems from './pages/trader/PortfolioPage.jsx';
-import TransactionPage from './pages/trader/TransactionsPage.jsx';
+import PortfolioItems from './pages/Portfolio/PortfolioPage.jsx';
+import TransactionPage from './pages/transaction/TransactionsPage.jsx';
 import AdminCreateTraderPage from './pages/admin/AdminCreateTraderPage.jsx'
 import AdminEditTraderPage from  './pages/admin/AdminEditTraderPage.jsx'
 import AdminAllTradersPage from  './pages/admin/AdminAllTradersPage.jsx'
@@ -23,10 +23,13 @@ import './App.css'
 
 function App() {
   return (
+    
     <Router>
       <Routes>
+      
         <Route path="/" element={<LandingPage/>} />
         <Route path="/login" element={<LoginPage/>} />
+        <Route path="/logout" element={<LoginPage/>} />
         <Route path="/signup" element={<SignupPage/>} />
         <Route path="/kyc" element={<KYCPage/>} />
         <Route path="/dashboard" element={<DashboardPage/>} />
@@ -45,9 +48,10 @@ function App() {
         <Route path="/confirmation-success" element={<ConfirmationSuccess />} />
         
 
-
+        
       </Routes>
     </Router>
+ 
   );
 }
 export default App
