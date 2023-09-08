@@ -12,7 +12,7 @@ import AdminCreateTraderPage from './pages/admin/AdminCreateTraderPage.jsx'
 import AdminEditTraderPage from  './pages/admin/AdminEditTraderPage.jsx'
 import AdminAllTradersPage from  './pages/admin/AdminAllTradersPage.jsx'
 import AdminAllTransactionsPage from  './pages/admin/AdminAllTransactionsPage'
-import AdminLoginPage from './pages/admin/AdminLoginPage.jsx';
+import AdminLoginPage from './pages/admin/adminLoginPage.jsx';
 import AdminSignupPage from './pages/admin/adminSignupPage.jsx';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage.jsx';
 import LandingPage from './LandingPage.jsx';
