@@ -2,12 +2,20 @@ import React,{ useState, useEffect }  from 'react';
 import {Link} from 'react-router-dom'
 import { fetchKYCStatus } from '../services/kycService.jsx';
 import PersistentDrawerLeft from '../components/Sidebar.jsx';
-
-
+import AuthModal from './trader/AuthModal.jsx';
+import { isAuthenticated } from '../services/authService.jsx';
 
 
 const DashboardPage = () => {
   const [kycStatus, setKYCStatus] = useState(null);
+
+  console.log("Initial auth_token value:", localStorage.getItem('auth_token'))
+  console.log("Checking authentication status...");
+  
+  if(!isAuthenticated() || localStorage.getItem('role') !== 'user') {
+    console.log(`Not authenticated or Trying to access as: ${localStorage.getItem('role')} , showing modal...`);
+    return <AuthModal />
+  }
 
   useEffect(() => {
     fetchKYCStatus()

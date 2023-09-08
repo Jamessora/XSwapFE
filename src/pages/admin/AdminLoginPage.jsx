@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { loginService } from '../../services/authService.jsx';
+import { adminLoginService } from '../../services/adminAuthService';
 import { useNavigate } from 'react-router-dom';
 
 import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-const LoginPage = () => {
+const AdminLoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -14,16 +14,14 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await loginService(email, password);
-      navigate('/dashboard');
+      await adminLoginService(email, password);
+      navigate('/admin/dashboard');
       // Redirect to dashboard or other authenticated page
     } catch (err) {
       console.log('Error:', err.message);
       setError(err.message);
     }
   };
-
-
 
   return (
     <ThemeProvider theme={createTheme()}>
@@ -88,7 +86,7 @@ const LoginPage = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <Link href="/admin/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -100,4 +98,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default AdminLoginPage;

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PersistentDrawerLeft from '../../components/Admin Sidebar';
 import { Grid, Typography, TextField, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-
+import { isAuthenticated } from '../../services/adminAuthService';
+import AdminAuthModal from './AdminAuthModal';
 
 const AdminEditTraderPage = () => {
   const { id } = useParams();
@@ -12,6 +13,15 @@ const AdminEditTraderPage = () => {
   const [balance, setBalance] = useState("");
   const [kycStatus, setKycStatus] = useState("");
   const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
+
+  console.log("Initial auth_token value:", localStorage.getItem('auth_token'))
+  console.log("Checking authentication status...");
+  
+  if(!isAuthenticated() || localStorage.getItem('role') !== 'admin') {
+    console.log(`Not authenticated or Trying to access as: ${localStorage.getItem('role')} , showing modal...`);
+    return <AdminAuthModal />
+  }
+  console.log("User authenticated, showing dashboard...");
 
   useEffect(() => {
     fetch(`${apiBaseURL}/admin/trader/${id}`)

@@ -3,10 +3,19 @@ import { withKYCProtection } from '../hoc/withKYCProtection.jsx';
 import { useAuthenticatedRequest } from '../../services/useAuthenticatedRequest.jsx';
 import RecentOrdersTable from './RecentOrdersTable.jsx';
 import PersistentDrawerLeft from '../../components/Sidebar.jsx';
-//import AccountBalance from './AccountBalance.jsx';
 
+import { isAuthenticated } from '../../services/authService.jsx';
+import AuthModal from '../trader/AuthModal.jsx';
 
 const PortfolioItems = () => {
+
+  console.log("Initial auth_token value:", localStorage.getItem('auth_token'))
+  console.log("Checking authentication status...");
+  
+  if(!isAuthenticated() || localStorage.getItem('role') !== 'user') {
+    console.log(`Not authenticated or Trying to access as: ${localStorage.getItem('role')} , showing modal...`);
+    return <AuthModal />
+  }
   const [portfolioItems, setPortfolioItems] = useState([]);
   const { makeRequest } = useAuthenticatedRequest();
   const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
@@ -35,28 +44,7 @@ const PortfolioItems = () => {
       <h1>Your Portfolio</h1>
       <PersistentDrawerLeft/>
       <RecentOrdersTable />
-      {/* <AccountBalance /> */}
-      
-      {/* <table>
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Amount</th>
-            <th>Price</th>
-            <th>Total Value</th>
-          </tr>
-        </thead>
-        <tbody>
-        {portfolioItems.map((item) => (
-          <tr key={item.id}>
-            <td>{item.token.name}</td>
-            <td>{item.amount}</td>
-            <td>{item.token.price} USDT</td>
-            <td>{item.amount * item.token.price} USDT</td>
-          </tr>
-        ))}
-        </tbody>
-      </table> */}
+  
     </div>
   );
 };

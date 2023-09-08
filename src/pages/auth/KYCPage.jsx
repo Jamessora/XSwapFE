@@ -36,7 +36,7 @@ const KYCPage = () => {
       alert('KYC form submitted!');
       try {
         const response = await submitKYC(kycData);
-        alert(response.message); // Handle success (e.g., navigate to another page or show a success message)
+        alert(response.message); 
       } catch (err) {
         setError('An error occurred while submitting the KYC data. Please try again.'); // Handle error
         console.error(err); 

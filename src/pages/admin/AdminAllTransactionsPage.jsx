@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import PersistentDrawerLeft from '../../components/Admin Sidebar';
+import { useAuthenticatedRequest } from '../../services/useAuthenticatedRequest';
+import { isAuthenticated } from '../../services/adminAuthService';
+import AdminAuthModal from './AdminAuthModal';
 
 const AdminAllTransactionsPage = () => {
   const [transactions, setTransactions] = useState([]);
   const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
+
+  console.log("Initial auth_token value:", localStorage.getItem('auth_token'))
+  console.log("Checking authentication status...");
+  
+  if(!isAuthenticated() || localStorage.getItem('role') !== 'admin') {
+    console.log(`Not authenticated or Trying to access as: ${localStorage.getItem('role')} , showing modal...`);
+    return <AdminAuthModal />
+  }
+  console.log("User authenticated, showing transactions...");
 
   useEffect(() => {
     fetch(`${apiBaseURL}/admin/allTransactions`)

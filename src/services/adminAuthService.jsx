@@ -1,24 +1,35 @@
 //SignupService
 
 
-const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
-
 export const isAuthenticated = () => {
   const isAuthenticated = localStorage.getItem('auth_token') !== null;
   console.log("Authentication status:", isAuthenticated);
   return isAuthenticated;
 };
 
+export const logout = () => {
+  localStorage.removeItem('auth_token');
+
+};
+
+const getApiBaseUrl = () => {
+  if (import.meta.env.DEV) {
+    return import.meta.env.VITE_API_BASE_URL_LOCAL;
+  }
+  return import.meta.env.VITE_API_BASE_URL;
+};
+
+export const apiBaseURL = getApiBaseUrl();
 
 
-export const signupService = async (email, password) => {
-    const response = await fetch(`${apiBaseURL}/users`, {
+export const adminSignupService = async (email, password) => {
+    const response = await fetch(`${apiBaseURL}/admins`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user: {
+        admin: {
           email: email,
           password: password,
           password_confirmation: password,
@@ -38,14 +49,14 @@ export const signupService = async (email, password) => {
   //LoginService
 
 
-  export const loginService = async (email, password) => {
-    const response = await fetch(`${apiBaseURL}/users/sign_in`, {
+  export const adminLoginService = async (email, password) => {
+    const response = await fetch(`${apiBaseURL}/admins/sign_in`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user: {
+        admin: {
           email: email,
           password: password,
         },
@@ -53,7 +64,7 @@ export const signupService = async (email, password) => {
     });
     
     console.log(response.headers);
-    const data = await response.json();
+    const data = await response.json(); 
   
    
   if (!response.ok) {
@@ -62,14 +73,10 @@ export const signupService = async (email, password) => {
   
   const token = response.headers.get('Authorization').split(' ')[1];
   localStorage.setItem('auth_token', token);
-  localStorage.setItem('role', 'user');
+  localStorage.setItem('role', 'admin');
   console.log(token);
-  
 
   return data;
   };
   
-  export const logout = () => {
-    localStorage.removeItem('auth_token');
-    
-  };
+  

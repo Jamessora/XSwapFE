@@ -6,10 +6,21 @@ import { useAuthenticatedRequest } from '../../services/useAuthenticatedRequest.
 import PersistentDrawerLeft from '../../components/Sidebar.jsx';
 import { Grid, Typography, Select, Input, Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { isAuthenticated } from '../../services/authService.jsx';
+import AuthModal from './AuthModal.jsx';
 
 const theme = createTheme();
 
 const TradingPage = (props) => {
+
+  console.log("Initial auth_token value:", localStorage.getItem('auth_token'))
+  console.log("Checking authentication status...");
+  
+  if(!isAuthenticated() || localStorage.getItem('role') !== 'user') {
+    console.log(`Not authenticated or Trying to access as: ${localStorage.getItem('role')} , showing modal...`);
+    return <AuthModal />
+  }
+
   const { makeRequest } = useAuthenticatedRequest();
   const [balance, setBalance] = useState(0)
   const [tokenPrice, setTokenPrice] = useState(null);
@@ -87,6 +98,7 @@ const TradingPage = (props) => {
       if (result && result.user && result.user.balance) {
         setBalance(parseFloat(result.user.balance));
         fetchUserBalance();
+        fetchUpdatedPortfolio();
       }
       
       console.log('Balance after buying:', result.user.balance);
@@ -132,7 +144,7 @@ const TradingPage = (props) => {
   const handleSellToken = async () => {
     try {
       const result = await sellToken(makeRequest, selectedToken, tokenAmount, usdValue);
-      // Handle the result here, e.g., update state or navigate to another page
+
       console.log('Sell successful:', result);
       
       alert('Sell successful');
@@ -140,6 +152,7 @@ const TradingPage = (props) => {
       if (result && result.user && result.user.balance) {
         setBalance(parseFloat(result.user.balance));
         fetchUserBalance();
+        fetchUpdatedPortfolio();
       }
     
       console.log('Balance after selling:', result.user.balance);
@@ -157,7 +170,7 @@ const TradingPage = (props) => {
     
      fetchTokenPrice();
     
-      // Set up an interval to fetch the BTC price every second
+      // Set up an interval to fetch the BTC price every min
       const intervalId = setInterval(fetchTokenPrice, 60000);
   
       // Clean up the interval when the component is unmounted
@@ -284,95 +297,6 @@ const TradingPage = (props) => {
         </Grid>
       </ThemeProvider>
     );
-
-  // 
-//   return (
-//     <div>
-//       <PersistentDrawerLeft/>
-//         <h1>Trading Page</h1>
-        
-//         <div style={{ display: 'flex', flexDirection: 'row' }}>
-//           <div style={{ flex: 1, paddingRight: '20px' }}>
-//             <div id="coingecko-widget-container"></div>
-//           </div>
-//           <div style={{ flex: 1 }}> <h2>Current Price of {selectedToken}: {tokenPrice ? `${tokenPrice} USDT` : 'Loading...'}</h2>
-//           <select onChange={(e) => setSelectedToken(e.target.value)} value={selectedToken}> {availableTokens.map((token) => ( <option key={token} value={token}> {token} </option> ))} </select>
-
-//           <div style={{ display: 'flex', flexDirection: 'row' }}> <div style={{ flex: 1 }}> <h3>Amount of Tokens</h3> <input type="number" value={tokenAmount} onChange={(e) => handleTokenAmountChange(e.target.value)} max={maxSellAmount} /> </div>
-//           <div style={{ flex: 1 }}>
-//             <h3>USD Value</h3>
-//             <input type="number" value={usdValue} onChange={(e) => handleUsdValueChange(e.target.value)} max={balance} />
-//           </div>
-//           </div> <div style={{ display: 'flex', flexDirection: 'row' }}>
-//             <div style={{ flex: 1 }}> 
-//             <button onClick={() => setUsdValue(balance)}>Max Buy
-//             </button> 
-//             </div> 
-//             <div style={{ flex: 1 }}> <button onClick={handleBuyToken}>Buy
-//             </button> 
-//             </div> 
-//             </div> 
-//             <div style={{ display: 'flex', flexDirection: 'row' }}> 
-//             <div style={{ flex: 1 }}> <button onClick={handleMaxSell}>Max Sell
-//             </button> </div> <div style={{ flex: 1 }}> <button onClick={handleSellToken}>Sell
-//             </button> 
-//             </div> 
-//             </div> 
-//             </div>
-      
-//         </div>
-//     </div>
-// );
-//////////////////
-
-    {/* <div style={{ flex: 1 }}>
-            <p>Current Price of {selectedToken}: {tokenPrice ? `${tokenPrice} USDT` : 'Loading...'}</p>
-            <select onChange={(e) => setSelectedToken(e.target.value)} value={selectedToken}>
-              {availableTokens.map((token) => (
-                <option key={token} value={token}>
-                  {token}
-                </option>
-              ))}
-            </select>
-            <input type="number" value={tokenAmount} onChange={(e) => handleTokenAmountChange(e.target.value)} max={maxSellAmount} />
-            <input type="number" value={usdValue} onChange={(e) => handleUsdValueChange(e.target.value)} max={balance} />
-            <button onClick={handleBuyToken}>Buy</button>
-            <button onClick={() => setUsdValue(balance)}>Max Buy</button>
-           
-
-            <button onClick={handleSellToken}>Sell</button>
-            <button onClick={handleMaxSell}>Max Sell</button>
-          </div> */}
-
-
-
-{/* <div style={{ flex: 1 }}> <h2>Current Price of {selectedToken}: {tokenPrice ? `${tokenPrice} USDT` : 'Loading...'}</h2>
-<select onChange={(e) => setSelectedToken(e.target.value)} value={selectedToken}> {availableTokens.map((token) => ( <option key={token} value={token}> {token} </option> ))} </select>
-
-<div style={{ display: 'flex', flexDirection: 'row' }}> <div style={{ flex: 1 }}> <h3>Amount of Tokens</h3> <input type="number" value={tokenAmount} onChange={(e) => handleTokenAmountChange(e.target.value)} max={maxSellAmount} /> </div>
-<div style={{ flex: 1 }}>
-  <h3>USD Value</h3>
-  <input type="number" value={usdValue} onChange={(e) => handleUsdValueChange(e.target.value)} max={balance} />
-</div>
-</div> <div style={{ display: 'flex', flexDirection: 'row' }}>
-   <div style={{ flex: 1 }}> 
-   <button onClick={() => setUsdValue(balance)}>Max Buy
-   </button> 
-   </div> 
-   <div style={{ flex: 1 }}> <button onClick={handleBuyToken}>Buy
-   </button> 
-   </div> 
-   </div> 
-   <div style={{ display: 'flex', flexDirection: 'row' }}> 
-   <div style={{ flex: 1 }}> <button onClick={handleMaxSell}>Max Sell
-   </button> </div> <div style={{ flex: 1 }}> <button onClick={handleSellToken}>Sell
-   </button> 
-   </div> 
-   </div> 
-   </div>
-
- */}
-
 
 
 };

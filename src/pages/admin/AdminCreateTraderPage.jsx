@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import { Grid, Typography, TextField, Button } from "@mui/material";
 import PersistentDrawerLeft from "../../components/Admin Sidebar";
-
+import { isAuthenticated } from "../../services/adminAuthService";
+import AdminAuthModal from "./AdminAuthModal";
 
 const AdminCreateTraderPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
+
+  console.log("Initial auth_token value:", localStorage.getItem('auth_token'))
+  console.log("Checking authentication status...");
+  
+  if(!isAuthenticated() || localStorage.getItem('role') !== 'admin') {
+    console.log(`Not authenticated or Trying to access as: ${localStorage.getItem('role')} , showing modal...`);
+    return <AdminAuthModal />
+  }
+  console.log("User authenticated, showing dashboard...");
 
   const handleCreateTrader = async () => {
     const payload = {

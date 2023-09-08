@@ -7,11 +7,24 @@ import BulkActions from './BulkActions.jsx';
 import RecentOrders from './RecentOrders.jsx';
 import PersistentDrawerLeft from '../../components/Sidebar.jsx';
 import { Grid, Container } from '@mui/material';
+import AuthModal from '../trader/AuthModal.jsx';
+import { isAuthenticated } from '../../services/authService.jsx';
 
 const TransactionPage = () => {
+
+  console.log("Initial auth_token value:", localStorage.getItem('auth_token'))
+  console.log("Checking authentication status...");
+  
+  if(!isAuthenticated() || localStorage.getItem('role') !== 'user') {
+    console.log(`Not authenticated or Trying to access as: ${localStorage.getItem('role')} , showing modal...`);
+    return <AuthModal />
+  }
+
   const [transactions, setTransactions] = useState([]);
   const { makeRequest } = useAuthenticatedRequest();
   const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
+
+
 
   const fetchUpdatedTransactions = async () => {
     try {
@@ -29,7 +42,7 @@ const TransactionPage = () => {
 
   useEffect(() => {
     // Fetch transactions from the backend
-    // Update the URL based on your API endpoint
+
     fetchUpdatedTransactions();
   }, []);
 
@@ -56,42 +69,11 @@ const TransactionPage = () => {
 
       </div>
   );
-  // <div>
-  // <h1>Your Transactions</h1>
-  //     <table>
-  //       <thead>
-  //         <tr>
-  //           <th>Transaction ID</th>
-  //           <th>Type</th>
-  //           <th>Token</th>
-  //           <th>Amount</th>
-  //           <th>Price</th>
-  //         </tr>
-  //       </thead>
-  //       <tbody>
-  //         {transactions.map((tx) => (
-  //           <tr key={tx.id}>
-  //           <td>{tx.id}</td>
-  //           <td>{tx.transaction_type}</td>
-  //           <td>{tx.token.name}</td>
-  //           <td>{tx.transaction_amount}</td>
-  //           <td>{tx.transaction_price} USDT</td>
-  //         </tr>
-  //         ))}
-  //       </tbody>
-  //     </table>
-  //   </div>
+  
 
 
 
-  // return (
-  //   <div>
-  //     {/* <PageHeader />
-  //     <BulkActions /> */}
-  //     <RecentOrdersTable />
-  //     {/* <RecentOrders /> */}
-  //   </div>
-  // );
+  
 };
 
 export default withKYCProtection(TransactionPage);

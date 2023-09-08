@@ -24,6 +24,7 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import { logoutService } from '../services/logoutService';
+import { logout } from '../services/authService';
 
 const drawerWidth = 240;
 
@@ -76,11 +77,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const handleLogoutService = async () => {
   try{
   await logoutService ();
+  localStorage.removeItem('auth_token');
   navigate ('/logout');
   }catch (error) {
     console.error('Logout failed', error );
   }
 }
+
 
 const drawerItems = [
     { text: 'Portfolio', icon: <AccountBalanceWalletIcon /> },
@@ -164,6 +167,7 @@ export default function PersistentDrawerLeft() {
           ))}
         </List>
         <Divider />
+        <button onClick={logout}>Logout</button>
       
       </Drawer>
       <Main open={open}>
